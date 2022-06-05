@@ -12,7 +12,7 @@ module.exports = {
     // if no args and not jason spit error in console
     if (
       (!args.length && message.author.id !== cfg.info.owner.id[0]) ||
-      message.author.id !== cfg.info.owner.id[1]
+      (!args.length && message.author.id !== cfg.info.owner.id[1])
     ) {
       message.delete();
       print.error(
