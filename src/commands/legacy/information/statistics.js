@@ -3,6 +3,7 @@ const package = require("../../../../package.json");
 const print = require("../../../misc/helpers/print.js");
 const os = require("systeminformation");
 const { execSync } = require("child_process");
+const smbios = require("../../../misc/helpers/smbios.js");
 
 // fucks haha get it because funcs
 function progress(percent) {
@@ -61,27 +62,6 @@ module.exports = {
       version = `v${package.version}`;
     }
 
-    /*
-    should fix, add to TODO.md
-
-    let gfx;
-
-    // check if a gpu is even present
-    if ((await os.graphics()).length) {
-      // if a gpu is present
-      gfx = `${(await os.graphics())[0].vendor} ${
-        (await os.graphics()).model
-      } (${(await os.graphics())[0].vram}mb VRAM) @ ${
-        (await os.graphics())[0].resolution
-      } ${(await os.graphics())[0].currentRefreshRate} (via ${
-        (await os.graphics())[0].connection
-      })`;
-    } else {
-      // if not present
-      gfx = "No GPUs are present!";
-    }
-    */
-
     const percentage =
       100 -
       ((await Math.round((await os.mem()).free / 1073741824)) /
@@ -91,25 +71,23 @@ module.exports = {
     // edit the message to show the stats
     // prettier-ignore
     await msg.edit(
-			`**${message.client.user.username}'s home:**
-      \`\`\`
-      Operating System  >> ${(await os.osInfo()).distro} ${(await os.osInfo()).release} (${(await os.osInfo()).arch})
-      Host Name         >> ${(await os.osInfo()).hostname}
-      Runtime & Library >> Node.js ${process.version}, Discord.js ${package.dependencies['discord.js'].slice(1, 10)}
-      Running Version   >> ${version}
+			`**${message.client.user.username}'s home:**\`\`\`
+Operating System  >> ${(await os.osInfo()).distro} ${(await os.osInfo()).release} (${(await os.osInfo()).arch})
+Host Name         >> ${(await os.osInfo()).hostname}
+Runtime & Library >> Node.js ${process.version}, Discord.js ${package.dependencies['discord.js'].slice(1, 10)}
+Running Version   >> ${version}
       
-      Computer Model    >> ${(await os.system()).manufacturer} ${(await os.system()).model}
-      Processor         >> ${(await os.cpu()).manufacturer} ${(await os.cpu()).brand} @ ${(await os.cpu()).speed} (${(await os.cpu()).physicalCores}c, ${(await os.cpu()).cores}t)
-      Memory            >> ${Math.round((await os.mem()).total / 1073741824)} GB @ ${(await os.memLayout())[0].clockSpeed} MHz
+Computer Model    >> ${(await os.system()).manufacturer} ${(await smbios((await os.system()).model))}
+Processor         >> ${(await os.cpu()).manufacturer} ${(await os.cpu()).brand} @ ${(await os.cpu()).speed} GHz (${(await os.cpu()).physicalCores}c, ${(await os.cpu()).cores}t)
+Memory            >> ${Math.round((await os.mem()).total / 1073741824)} GB @ ${(await os.memLayout())[0].clockSpeed} MHz
       
-      Processor Usage (across ${(await os.cpu()).cores} threads):
-      ${progress(Math.round((await os.currentLoad()).currentLoad))} ${Math.round((await os.currentLoad()).currentLoad)}%
+Processor Usage (across ${(await os.cpu()).cores} threads):
+${progress(Math.round((await os.currentLoad()).currentLoad))} ${Math.round((await os.currentLoad()).currentLoad)}%
       
-      Memory Usage (${Math.round((await os.mem()).free / 1073741824)}GB free out of ${Math.round((await os.mem()).total / 1073741824)}GB total):
-      ${progress(Math.round(percentage))} ${Math.round(percentage)}%
+Memory Usage (${Math.round((await os.mem()).free / 1073741824)}GB free out of ${Math.round((await os.mem()).total / 1073741824)}GB total):
+${progress(Math.round(percentage))} ${Math.round(percentage)}%
       
-      ${timeconv(os.time().uptime)} and counting... ☆.。.:*・°☆
-      \`\`\``
+${timeconv(os.time().uptime)} and counting... ☆.。.:*・°☆\`\`\``
 		);
   },
 };
