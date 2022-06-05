@@ -15,6 +15,6 @@ module.exports = {
         "\n ____                _       _ \n|  _ \\ ___  __ _  __| |_   _| |\n| |_) / _ \\/ _` |/ _` | | | | |\n|  _ <  __/ (_| | (_| | |_| |_|\n|_| \\_\\___|\\__,_|\\__,_|\\__, (_)\n	               |___/ \n"
       )
     );
-    print.ready(`Logged in as ${client.user.tag}! Ready to serve Byte users!`);
+    print.ready(`Logged in as ${client.user.tag}! Ready to serve degenerate users!`);
   },
 };
