@@ -37,14 +37,9 @@ const rest = new REST({ version: "9" }).setToken(process.env.secret);
     print.log("Attempting to register slash commands...");
 
     await rest.put(
-      process.argv[2]
-        ? Routes.applicationGuildCommands(
-            process.env.client,
-            process.env.server
-          )
-        : Routes.applicationCommands(process.env.client),
+      Routes.applicationGuildCommands(process.env.client, process.env.server),
       {
-        body: commands,
+        body: cmds,
       }
     );
 

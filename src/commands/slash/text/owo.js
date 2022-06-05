@@ -12,7 +12,7 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    const str = interaction.options.getString("message");
+    const str = interaction.options.getString("string");
 
     const transformed = transform.owo(str);
 

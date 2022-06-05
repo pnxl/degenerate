@@ -7,8 +7,6 @@ module.exports = {
   usage: "[message]",
 
   async execute(message, args) {
-    message.delete();
-
     const str = args.join(" ");
 
     const transformed = transform.owo(str);
@@ -30,9 +28,7 @@ module.exports = {
       avatarURL: av,
     });
 
-    await message.reply({ content: "Webhook sent!" }).then((m) => {
-      setTimeout(() => m.delete(), 2500);
-    });
+    await message.delete();
 
     await webhook.delete();
   },
