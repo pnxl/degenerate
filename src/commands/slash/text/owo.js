@@ -22,7 +22,7 @@ module.exports = {
 
     const webhook = await interaction.channel.createWebhook(
       interaction.member.displayName,
-      { avatarURL: avatar }
+      { avatarURL: av }
     );
 
     webhook.send({
