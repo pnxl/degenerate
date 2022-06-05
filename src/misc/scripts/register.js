@@ -22,9 +22,9 @@ for (const folder of folders) {
   );
 
   for (const file of files) {
-    const command = require(`../../commands/slash/${folder}/${file}`);
-    cmds.push(command.data.toJSON());
-    print.debug(`Pushed slash command: ${command.data.name}.js`);
+    const cmd = require(`../../commands/slash/${folder}/${file}`);
+    cmds.push(cmd.data.toJSON());
+    print.debug(`Pushed slash command: ${cmd.data.name}.js`);
   }
 }
 

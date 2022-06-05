@@ -33,7 +33,7 @@ function timeconv(d) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("statistics")
-    .setDescription("get current statistics on Penguino"),
+    .setDescription("get current statistics on this bot"),
   async execute(interaction) {
     // thonk
     await interaction.deferReply();

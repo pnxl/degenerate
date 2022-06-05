@@ -31,15 +31,8 @@ function timeconv(d) {
 
 module.exports = {
   name: "statistics",
-  description: "get current statistics on Penguino",
-  aliases: [
-    "stats",
-    "hostinfo",
-    "host",
-    "infrastructure",
-    "infrainfo",
-    "usage",
-  ],
+  description: "get current statistics on this bot",
+  aliases: ["stats", "hostinfo", "host"],
   async execute(message) {
     // thonk
     const msg = await message.reply(
