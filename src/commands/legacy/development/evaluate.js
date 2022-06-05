@@ -33,9 +33,6 @@ module.exports = {
           message.channel.id
         }> and ran:\n            ${args.join(" ")}`
       );
-      print.warn(
-        "If this is intentional, you may ignore this warning. Make sure to remove evaluate before getting Penguino ready for production!"
-      );
 
       message.delete();
 
