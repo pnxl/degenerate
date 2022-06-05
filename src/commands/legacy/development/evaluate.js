@@ -9,14 +9,11 @@ module.exports = {
   aliases: ["eval", "ev", "js", "exec", "ex", "code", "execute"],
   hidden: true,
   async execute(message, args) {
-    // why the fuck is this function async
-    // eslint-disable-next-line no-unused-vars
-    async function send(content) {
-      message.channel.send(content);
-    }
-
     // if no args and not jason spit error in console
-    if (!args.length && message.author.id !== cfg.info.owner.id) {
+    if (
+      (!args.length && message.author.id !== cfg.info.owner.id[0]) ||
+      message.author.id !== cfg.info.owner.id[1]
+    ) {
       message.delete();
       print.error(
         "A user attempted to run evaluate! Make sure to remove evaluate before getting Penguino ready for production!"
@@ -26,7 +23,10 @@ module.exports = {
       });
     }
 
-    if (message.author.id === cfg.info.owner.id) {
+    if (
+      message.author.id === cfg.info.owner.id[0] ||
+      message.author.id === cfg.info.owner.id[1]
+    ) {
       // actual eval code
       print.warn(
         `'${message.author.tag}' ran evaluate at <#${
