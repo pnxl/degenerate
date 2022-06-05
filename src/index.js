@@ -1,8 +1,6 @@
 // init console
 console.clear;
 const print = require('./misc/helpers/print.js');
-print.comment("I'm ready to serve you, senpai!~ >~<");
-print.comment('If you like this bot, make sure to leave a star on GitHub!\n');
 
 // import modules
 const { Client, Collection, Intents } = require('discord.js');
