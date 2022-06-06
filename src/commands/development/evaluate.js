@@ -1,7 +1,7 @@
 // import modules
 const { MessageEmbed } = require("discord.js");
-const print = require("../../../misc/helpers/print.js");
-const cfg = require("../../../../cfg.json");
+const print = require("../../misc/helpers/print.js");
+const cfg = require("../../cfg.json");
 const { inspect } = require("util");
 
 module.exports = {

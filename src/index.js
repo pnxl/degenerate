@@ -22,8 +22,7 @@ client.legacyCmd = new Collection();
 client.cooldowns = new Collection();
 
 // import loaders
-require('./misc/loaders/applicationCmd.js')(client, print);
-require('./misc/loaders/legacyCmd.js')(client, print);
+require('./misc/loaders/commands.js')(client, print);
 require('./misc/loaders/event.js')(client, print);
 
 // login

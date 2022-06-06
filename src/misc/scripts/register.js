@@ -1,8 +1,6 @@
 // init console
 console.clear;
 const print = require("../helpers/print.js");
-print.comment("I'm ready to serve you, senpai!~ >~<");
-print.comment("If you like this bot, make sure to leave a star on GitHub!\n");
 
 // import modules
 const { REST } = require("@discordjs/rest");
@@ -14,17 +12,17 @@ require("dotenv").config();
 const cmds = [];
 
 // search 4 commands
-const folders = readdirSync("./src/commands/slash");
+const folders = readdirSync("./src/commands");
 
 for (const folder of folders) {
-  const files = readdirSync(`./src/commands/slash/${folder}`).filter((f) =>
+  const files = readdirSync(`./src/commands/${folder}`).filter((f) =>
     f.endsWith(".js")
   );
 
   for (const file of files) {
-    const cmd = require(`../../commands/slash/${folder}/${file}`);
+    const cmd = require(`../../commands/${folder}/${file}`);
     cmds.push(cmd.data.toJSON());
-    print.debug(`Pushed slash command: ${cmd.data.name}.js`);
+    print.debug(`Pushed command: ${cmd.data.name}.js`);
   }
 }
 
@@ -34,7 +32,7 @@ const rest = new REST({ version: "9" }).setToken(process.env.secret);
 // push 2 d-api
 (async () => {
   try {
-    print.log("Attempting to register slash commands...");
+    print.log("Attempting to register commands...");
 
     await rest.put(
       Routes.applicationGuildCommands(process.env.client, process.env.server),
@@ -43,7 +41,7 @@ const rest = new REST({ version: "9" }).setToken(process.env.secret);
       }
     );
 
-    print.ready("Successfully registered slash commands!");
+    print.ready("Successfully registered commands!");
   } catch (error) {
     print.error(error);
   }

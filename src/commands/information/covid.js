@@ -1,14 +1,41 @@
 // import modules
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const cfg = require("../../../../cfg.json");
+const cfg = require("../../cfg.json");
 const fetch = require("node-fetch");
 
 module.exports = {
-  name: "covid",
-  description: "get the current covid statistics",
-  args: true,
-  usage: "<worldwide|continent|country> [area]",
-  async execute(message, args) {
+  data: new SlashCommandBuilder()
+    .setName("covid")
+    .setDescription("get the current covid statistics")
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("worldwide")
+        .setDescription("shows COVID-19 statistics worldwide")
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("continent")
+        .setDescription("shows COVID-19 statistics from a continent")
+        .addStringOption((option) =>
+          option
+            .setName("area")
+            .setDescription("enter a continent to fetch information from!")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("country")
+        .setDescription("shows COVID-19 statistics from a country")
+        .addStringOption((option) =>
+          option
+            .setName("area")
+            .setDescription("enter a country to fetch information from!")
+            .setRequired(true)
+        )
+    ),
+  async execute(interaction) {
     const button = new MessageActionRow().addComponents(
       new MessageButton()
         .setStyle("LINK")
@@ -16,7 +43,7 @@ module.exports = {
         .setURL(cfg.misc.covid.prevention)
     );
 
-    if (args[0] === "worldwide") {
+    if (interaction.options.getSubcommand() === "worldwide") {
       const api = await fetch(cfg.api.covid.all).then((r) => r.json());
 
       const embed = new MessageEmbed()
@@ -73,15 +100,15 @@ module.exports = {
           }
         );
 
-      message.reply({ embeds: [embed], components: [button] });
-    } else if (args[0] === "continent") {
-      if (!args[1]) return message.reply("please specify a continent!");
+      interaction.reply({ embeds: [embed], components: [button] });
+    } else if (interaction.options.getSubcommand() === "continent") {
+      const area = interaction.options.getString("area");
       const api = await fetch(
-        cfg.api.covid.continent.replace("{{continent}}", args[1])
+        cfg.api.covid.continent.replace("{{continent}}", area)
       ).then((r) => r.json());
 
       if (api.message === "Continent not found or doesn't have any cases") {
-        message.reply(
+        interaction.reply(
           "the continent you specified does not exist or does not have any cases."
         );
         return;
@@ -141,15 +168,15 @@ module.exports = {
           }
         );
 
-      message.reply({ embeds: [embed], components: [button] });
-    } else if (args[0] === "country") {
-      if (!args[1]) return message.reply("please specify a country!");
+      interaction.reply({ embeds: [embed], components: [button] });
+    } else if (interaction.options.getSubcommand() === "country") {
+      const area = interaction.options.getString("area");
       const api = await fetch(
-        cfg.api.covid.country.replace("{{country}}", args[1])
+        cfg.api.covid.country.replace("{{country}}", area)
       ).then((r) => r.json());
 
       if (api.message === "Country not found or doesn't have any cases") {
-        message.reply(
+        interaction.reply(
           "the country you specified does not exist or does not have any cases."
         );
         return;
@@ -204,7 +231,7 @@ module.exports = {
           }
         );
 
-      message.reply({ embeds: [embed], components: [button] });
+      interaction.reply({ embeds: [embed], components: [button] });
     }
   },
 };
