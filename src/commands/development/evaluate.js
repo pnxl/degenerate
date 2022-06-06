@@ -16,35 +16,33 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
+    const code = interaction.options.getString("code");
+
     if (
       interaction.user.id === cfg.info.owner.id[0] ||
       interaction.user.id === cfg.info.owner.id[1]
     ) {
       // actual eval code
       print.warn(
-        `'${interaction.user.tag}' ran evaluate at <#${
-          interaction.channel.id
-        }> and ran:\n            ${args.join(" ")}`
+        `'${interaction.user.tag}' ran evaluate at <#${interaction.channel.id}> and ran:\n            ${code}`
       );
-
-      const snippet = args.join(" ");
 
       let res;
       try {
-        res = eval(snippet);
+        res = eval(code);
         res = inspect(res, { depth: 0 });
       } catch (error) {
         res = inspect(error, { depth: 0 });
       }
 
       const embed = new MessageEmbed()
-        .setuser({
-          name: message.user.tag,
-          iconURL: message.user.displayAvatarURL(),
+        .setAuthor({
+          name: interaction.user.tag,
+          iconURL: interaction.user.displayAvatarURL(),
         })
         .setColor(cfg.embed.colour)
         .setTitle("evaluation")
-        .addField("code snippet", `\`\`\`js\n${snippet.slice(0, 1015)}\`\`\``)
+        .addField("code snippet", `\`\`\`js\n${code.slice(0, 1015)}\`\`\``)
         .addField("node.js results", `\`\`\`js\n${res.slice(0, 1015)}\`\`\``)
         .setFooter({
           text: `running node.js ${process.version}`,
