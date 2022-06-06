@@ -17,12 +17,12 @@ module.exports = {
     ),
   async execute(interaction) {
     if (
-      interaction.author.id === cfg.info.owner.id[0] ||
-      interaction.author.id === cfg.info.owner.id[1]
+      interaction.user.id === cfg.info.owner.id[0] ||
+      interaction.user.id === cfg.info.owner.id[1]
     ) {
       // actual eval code
       print.warn(
-        `'${interaction.author.tag}' ran evaluate at <#${
+        `'${interaction.user.tag}' ran evaluate at <#${
           interaction.channel.id
         }> and ran:\n            ${args.join(" ")}`
       );
@@ -38,9 +38,9 @@ module.exports = {
       }
 
       const embed = new MessageEmbed()
-        .setAuthor({
-          name: message.author.tag,
-          iconURL: message.author.displayAvatarURL(),
+        .setuser({
+          name: message.user.tag,
+          iconURL: message.user.displayAvatarURL(),
         })
         .setColor(cfg.embed.colour)
         .setTitle("evaluation")
