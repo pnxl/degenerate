@@ -1,7 +1,5 @@
 // import modules
 const print = require("../../misc/helpers/print.js");
-const { MessageEmbed } = require("discord.js");
-const cfg = require("../../cfg.json");
 const gradient = require("gradient-string");
 require("colors");
 
