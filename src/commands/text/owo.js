@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const transform = require("../../../misc/helpers/transform.js");
+const transform = require("../../misc/helpers/transform.js");
 
 module.exports = {
   data: new SlashCommandBuilder()

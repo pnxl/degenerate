@@ -1,10 +1,10 @@
 // import modules
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const package = require("../../../package.json");
-const print = require("../../../misc/helpers/print.js");
+const print = require("../../misc/helpers/print.js");
 const os = require("systeminformation");
 const { execSync } = require("child_process");
-const smbios = require("../../../misc/helpers/smbios.js");
+const smbios = require("../../misc/helpers/smbios.js");
 
 // fucks haha get it because funcs
 function progress(percent) {
