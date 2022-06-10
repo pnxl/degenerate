@@ -21,6 +21,7 @@ module.exports = {
       cfg.api.cuddle[Math.floor(Math.random() * cfg.api.cuddle.length)];
     const { url } = await fetch(api).then((res) => res.json());
 
+    // create embed
     const embed = new MessageEmbed()
       .setColor(cfg.embed.colours.default)
       .setAuthor({
@@ -34,6 +35,7 @@ module.exports = {
       .setImage(url)
       .setFooter({ text: `fetched from ${api}.` });
 
+    // if its the same person that ran, the bot cuddles instead
     if (interaction.options.getUser("target") === interaction.user) {
       embed.setAuthor({
         name: `${interaction.client.user.username} ${
