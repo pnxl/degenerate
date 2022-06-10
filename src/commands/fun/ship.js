@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageAttachment, Message } = require("discord.js");
 const cfg = require("../../../cfg.json");
 
 module.exports = {
@@ -123,7 +123,7 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "775550130115444776")
       ) {
         return "chash ☆";
-      }  else if (
+      } else if (
         /*
          * 648896419020668928 is bri
          * 466453424930553856 is evan
@@ -182,49 +182,78 @@ module.exports = {
       }
     }
 
-    const baseEmbed = new MessageEmbed()
-      .setTitle(`this isn't going to work out... 😬`)
-      .setColor(cfg.embed.colours.default)
-      .setDescription(`**${percentageBias()}%** | nothing much to say here...`);
+    function pickEmbed() {
+      const baseEmbed = new MessageEmbed()
+        .setTitle(`this isn't going to work out... 😬`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(
+          `**${percentageBias()}%** | nothing much to say here...`
+        );
 
-    const thirtyEmbed = new MessageEmbed()
-      .setTitle(`cute couple 😅`)
-      .setColor(cfg.embed.colours.default)
-      .setDescription(`**${percentageBias()}%** | not much to say here...`);
+      const thirtyEmbed = new MessageEmbed()
+        .setTitle(`cute couple 😅`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(`**${percentageBias()}%** | not much to say here...`);
 
-    const fiftyEmbed = new MessageEmbed()
-      .setTitle(`adorable couple!! 😊`)
-      .setColor(cfg.embed.colours.default)
-      .setDescription(
-        `**${percentageBias()}%** | i call this ship "${shipName()}"`
+      const fiftyEmbed = new MessageEmbed()
+        .setTitle(`adorable couple!! 😊`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(
+          `**${percentageBias()}%** | i call this ship "${shipName()}"`
+        );
+
+      const eightyEmbed = new MessageEmbed()
+        .setTitle(`AHH CUTE!!~ 😍`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(
+          `**${percentageBias()}%** | i call this ship "${shipName()}"`
+        );
+
+      const topEmbed = new MessageEmbed()
+        .setTitle(`a match made in heaven. 💖`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(
+          `**${percentageBias()}%** | i call this ship "${shipName()}"`
+        );
+
+      if (percentageBias() < 30) {
+        return baseEmbed;
+      } else if (percentageBias() < 50) {
+        return thirtyEmbed;
+      } else if (percentageBias() < 80) {
+        return fiftyEmbed;
+      } else if (percentageBias() < 95) {
+        return eightyEmbed;
+      } else if (percentageBias() > 98) {
+        return topEmbed;
+      } else {
+        return fiftyEmbed;
+      }
+    }
+
+    if (
+      interaction.user.id === interaction.options.getUser("user1")?.id &&
+      interaction.user.id === interaction.options.getUser("user2")?.id
+    ) {
+      const file = new MessageAttachment(
+        "./src/misc/assets/commands/fun/ship/anime-hug-love.gif"
       );
 
-    const eightyEmbed = new MessageEmbed()
-      .setTitle(`AHH CUTE!!~ 😍`)
-      .setColor(cfg.embed.colours.default)
-      .setDescription(
-        `**${percentageBias()}%** | i call this ship "${shipName()}"`
-      );
+      const embed = new MessageEmbed()
+        .setTitle(`you can't ship yourself!`)
+        .setColor(cfg.embed.colours.default)
+        .setDescription(`it's alright, i'll be here for you. <3`)
+        .setImage("attachment://anime-hug-love.gif");
 
-    const topEmbed = new MessageEmbed()
-      .setTitle(`a match made in heaven. 💖`)
-      .setColor(cfg.embed.colours.default)
-      .setDescription(
-        `**${percentageBias()}%** | i call this ship "${shipName()}"`
-      );
+      interaction.reply({ embeds: [embed], files: [file] });
+    } else if (user1 === user2) {
+      const embed = new MessageEmbed()
+        .setTitle(`you can't ship with the same person!`)
+        .setColor(cfg.embed.colours.default);
 
-    if (percentageBias() < 30) {
-      interaction.reply({ embeds: [baseEmbed] });
-    } else if (percentageBias() < 50) {
-      interaction.reply({ embeds: [thirtyEmbed] });
-    } else if (percentageBias() < 80) {
-      interaction.reply({ embeds: [fiftyEmbed] });
-    } else if (percentageBias() < 95) {
-      interaction.reply({ embeds: [eightyEmbed] });
-    } else if (percentageBias() > 98) {
-      interaction.reply({ embeds: [topEmbed] });
+      interaction.reply({ embeds: [embed] });
     } else {
-      interaction.reply({ embeds: [fiftyEmbed] });
+      interaction.reply({ embeds: [pickEmbed()] });
     }
   },
 };
