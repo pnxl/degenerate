@@ -29,6 +29,10 @@ module.exports = {
 
     function percentageBias() {
       if (
+        /*
+         * 648896419020668928 is bri
+         * 466453424930553856 is evan
+         */
         (interaction.options.getUser("user1")?.id === "648896419020668928" &&
           interaction.options.getUser("user2")?.id === "466453424930553856") ||
         (interaction.options.getUser("user2")?.id === "648896419020668928" &&
@@ -36,6 +40,10 @@ module.exports = {
       ) {
         return 100;
       } else if (
+        /*
+         * 967724967741513808 is jason
+         * 763970485373370370 is kei
+         */
         (interaction.options.getUser("user1")?.id === "967724967741513808" &&
           interaction.options.getUser("user2")?.id === "763970485373370370") ||
         (interaction.options.getUser("user2")?.id === "967724967741513808" &&
@@ -43,10 +51,47 @@ module.exports = {
       ) {
         return 100;
       } else if (
+        /*
+         * 728180364962562108 is cha
+         * 775550130115444776 is ashley
+         */
         (interaction.options.getUser("user1")?.id === "728180364962562108" &&
           interaction.options.getUser("user2")?.id === "775550130115444776") ||
         (interaction.options.getUser("user2")?.id === "728180364962562108" &&
           interaction.options.getUser("user1")?.id === "775550130115444776")
+      ) {
+        return 100;
+      } else if (
+        /*
+         * 683126724304830570 is tristan
+         * 466453424930553856 is evan
+         */
+        (interaction.options.getUser("user1")?.id === "683126724304830570" &&
+          interaction.options.getUser("user2")?.id === "466453424930553856") ||
+        (interaction.options.getUser("user2")?.id === "683126724304830570" &&
+          interaction.options.getUser("user1")?.id === "466453424930553856")
+      ) {
+        return 100;
+      } else if (
+        /*
+         * 648896419020668928 is bri
+         * 871926990112956457 is karyn
+         */
+        (interaction.options.getUser("user1")?.id === "648896419020668928" &&
+          interaction.options.getUser("user2")?.id === "871926990112956457") ||
+        (interaction.options.getUser("user2")?.id === "648896419020668928" &&
+          interaction.options.getUser("user1")?.id === "871926990112956457")
+      ) {
+        return 100;
+      } else if (
+        /*
+         * 648896419020668928 is bri
+         * 817257502436491294 is karyn
+         */
+        (interaction.options.getUser("user1")?.id === "648896419020668928" &&
+          interaction.options.getUser("user2")?.id === "817257502436491294") ||
+        (interaction.options.getUser("user2")?.id === "648896419020668928" &&
+          interaction.options.getUser("user1")?.id === "817257502436491294")
       ) {
         return 100;
       } else {
@@ -56,12 +101,82 @@ module.exports = {
 
     function shipName() {
       if (
+        /*
+         * 967724967741513808 is jason
+         * 763970485373370370 is kei
+         */
+
         (interaction.options.getUser("user1")?.id === "967724967741513808" &&
           interaction.options.getUser("user2")?.id === "763970485373370370") ||
         (interaction.options.getUser("user2")?.id === "967724967741513808" &&
           interaction.options.getUser("user1")?.id === "763970485373370370")
       ) {
         return "keison";
+      } else if (
+        /*
+         * 728180364962562108 is cha
+         * 775550130115444776 is ashley
+         */
+        (interaction.options.getUser("user1")?.id === "728180364962562108" &&
+          interaction.options.getUser("user2")?.id === "775550130115444776") ||
+        (interaction.options.getUser("user2")?.id === "728180364962562108" &&
+          interaction.options.getUser("user1")?.id === "775550130115444776")
+      ) {
+        return "chash ☆";
+      }  else if (
+        /*
+         * 648896419020668928 is bri
+         * 466453424930553856 is evan
+         */
+        (interaction.options.getUser("user1")?.id === "648896419020668928" &&
+          interaction.options.getUser("user2")?.id === "466453424930553856") ||
+        (interaction.options.getUser("user2")?.id === "648896419020668928" &&
+          interaction.options.getUser("user1")?.id === "466453424930553856")
+      ) {
+        /*
+         * POSSIBLE SHIP NAMES
+         * - brevan
+         * - brev
+         * - ebitta
+         * - evbitta
+         * - brivan
+         * - egitta
+         */
+
+        return "brevan";
+      } else if (
+        /*
+         * 683126724304830570 is tristan
+         * 466453424930553856 is evan
+         */
+        (interaction.options.getUser("user1")?.id === "683126724304830570" &&
+          interaction.options.getUser("user2")?.id === "466453424930553856") ||
+        (interaction.options.getUser("user2")?.id === "683126724304830570" &&
+          interaction.options.getUser("user1")?.id === "466453424930553856")
+      ) {
+        return "trisvan";
+      } else if (
+        /*
+         * 648896419020668928 is bri
+         * 871926990112956457 is karyn
+         */
+        (interaction.options.getUser("user1")?.id === "648896419020668928" &&
+          interaction.options.getUser("user2")?.id === "871926990112956457") ||
+        (interaction.options.getUser("user2")?.id === "648896419020668928" &&
+          interaction.options.getUser("user1")?.id === "871926990112956457")
+      ) {
+        return "kargitta"; // car-guitar lol
+      } else if (
+        /*
+         * 648896419020668928 is bri
+         * 817257502436491294 is karyn
+         */
+        (interaction.options.getUser("user1")?.id === "648896419020668928" &&
+          interaction.options.getUser("user2")?.id === "817257502436491294") ||
+        (interaction.options.getUser("user2")?.id === "648896419020668928" &&
+          interaction.options.getUser("user1")?.id === "817257502436491294")
+      ) {
+        return "kargitta";
       } else {
         return user1slice + user2slice;
       }
