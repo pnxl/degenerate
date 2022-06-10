@@ -37,9 +37,6 @@ module.exports = {
     .setName("statistics")
     .setDescription("get current statistics on this bot"),
   async execute(interaction) {
-    // thonk
-    // await interaction.deferReply();
-
     // don't show commit info if git isn't installed.
     function commit() {
       if (!execSync("git --version").toString().includes("not")) {
@@ -51,6 +48,8 @@ module.exports = {
       }
     }
 
+    // define usages, to be used in other variables
+    // this should reduce loading times
     const usages = {
       cpu: Math.round((await os.currentLoad()).currentLoad),
       mem: Math.floor(
@@ -61,6 +60,7 @@ module.exports = {
       ),
     };
 
+    // define in json so embed could be cleaner
     // prettier-ignore
     const sysinfo = {
       os: `${(await os.osInfo()).distro} ${(await os.osInfo()).release} (${(await os.osInfo()).arch})`,
@@ -82,6 +82,7 @@ module.exports = {
       )} GB free out of ${Math.round((await os.mem()).total / 1073741824)} GB total`,
     };
 
+    // general embed
     const general = new MessageEmbed()
       .setTitle(`🌱 general statistics`)
       .setColor(cfg.embed.colours.default)
@@ -91,8 +92,12 @@ module.exports = {
         "created at",
         `<t:${Math.floor(interaction.client.user.createdTimestamp / 1000)}:f>`
       )
-      .addField("owners", cfg.info.owner.ping.join(", "));
+      .addField("owners", cfg.info.owner.ping.join(", "))
+      .setFooter({
+        text: `proudly serving ${interaction.client.users.cache.size} users on ${interaction.client.guilds.cache.size} servers and counting! ✨`,
+      });
 
+    // about the host
     const host = new MessageEmbed()
       .setTitle(`🏠 ${interaction.client.user.username}'s home`)
       .setColor(cfg.embed.colours.default)
@@ -108,30 +113,11 @@ module.exports = {
         `processor usage (across ${sysinfo.usageCpuInfo} threads)`,
         sysinfo.usageCpuPrg
       )
-      .addField(`memory usage (${sysinfo.usageMemInfo})`, sysinfo.usageMemPrg);
+      .addField(`memory usage (${sysinfo.usageMemInfo})`, sysinfo.usageMemPrg)
+      .setFooter({
+        text: `made with ☕️ by ${cfg.info.owner.tag[0]}, with lots of 💖 from ${cfg.info.owner.tag[1]}`,
+      });
 
-    interaction.reply({ embeds: [general, host] })
-
-    // edit the interaction to show the stats
-    // prettier-ignore
-    //     interaction.editReply(
-    // 			`**${interaction.client.user.username}'s home:**\`\`\`
-    // Operating System  >> ${(await os.osInfo()).distro} ${(await os.osInfo()).release} (${(await os.osInfo()).arch})
-    // Host Name         >> ${(await os.osInfo()).hostname}
-    // Runtime & Library >> Node.js ${process.version}, Discord.js ${package.dependencies['discord.js'].slice(1, 10)}
-    // Running Version   >> ${version}
-
-    // Computer Model    >> ${(await os.system()).manufacturer} ${(await smbios((await os.system()).model))}
-    // Processor         >> ${(await os.cpu()).manufacturer} ${(await os.cpu()).brand} @ ${(await os.cpu()).speed} GHz (${(await os.cpu()).physicalCores}c, ${(await os.cpu()).cores}t)
-    // Memory            >> ${Math.round((await os.mem()).total / 1073741824)} GB @ ${(await os.memLayout())[0].clockSpeed} MHz
-
-    // Processor Usage (across ${(await os.cpu()).cores} threads):
-    // ${progress(Math.round((await os.currentLoad()).currentLoad))} ${Math.round((await os.currentLoad()).currentLoad)}%
-
-    // Memory Usage (${Math.round((await os.mem()).free / 1073741824)}GB free out of ${Math.round((await os.mem()).total / 1073741824)}GB total):
-    // ${progress(Math.round(percentage))} ${Math.round(percentage)}%
-
-    // ${timeconv(os.time().uptime)} and counting... ☆.。.:*・°☆\`\`\``
-    // 		);
+    interaction.reply({ embeds: [general, host] });
   },
 };
