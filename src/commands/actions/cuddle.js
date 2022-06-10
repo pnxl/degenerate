@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("cuddles")
+    .setName("cuddle")
     .setDescription("cuddles with someone else")
     .addUserOption((option) =>
       option
@@ -17,20 +17,33 @@ module.exports = {
   async execute(interaction) {
     const suffixes = cfg.misc.cuddle.suffixes;
     const verbs = cfg.misc.cuddle.verbs;
-    const { url } = await fetch(
-      cfg.api.cuddle[Math.floor(Math.random() * cfg.api.cuddle.length)]
-    ).then((res) => res.json());
+    const api =
+      cfg.api.cuddle[Math.floor(Math.random() * cfg.api.cuddle.length)];
+    const { url } = await fetch(api).then((res) => res.json());
 
     const embed = new MessageEmbed()
       .setColor(cfg.embed.colours.default)
       .setAuthor({
         name: `${interaction.member.displayName} ${
           verbs[Math.floor(Math.random() * verbs.length)]
-        }~ ${suffixes[Math.floor(Math.random() * suffixes.length)]}`,
+        } ${interaction.options.getMember("target")?.displayName}!~ ${
+          suffixes[Math.floor(Math.random() * suffixes.length)]
+        }`,
         iconURL: interaction.user.avatarURL(),
       })
       .setImage(url)
-      .setFooter({ text: `fetched from ${cfg.api.cuddle}.` });
+      .setFooter({ text: `fetched from ${api}.` });
+
+    if (interaction.options.getUser("target") === interaction.user) {
+      embed.setAuthor({
+        name: `${interaction.client.user.username} ${
+          verbs[Math.floor(Math.random() * verbs.length)]
+        } ${interaction.member.displayName}!~ ${
+          suffixes[Math.floor(Math.random() * suffixes.length)]
+        }`,
+        iconURL: interaction.client.user.avatarURL(),
+      });
+    }
 
     await interaction.reply({ embeds: [embed] });
   },
