@@ -45,29 +45,14 @@ async function spitOutInformationNowGodDamnIt() {
       "info": ${JSON.stringify(await si.mem())},
       "layout": ${JSON.stringify(await si.memLayout())}
     },
-    "batt": ${JSON.stringify(await si.battery())},
     "gfx": ${JSON.stringify(await si.graphics())},
     "os": {
       "sys": ${JSON.stringify(await si.osInfo())},
       "shell": ${JSON.stringify(await si.shell())},
-      "ver": ${JSON.stringify(await si.versions())},
-      "usr": ${JSON.stringify(await si.users())}
+      "ver": ${JSON.stringify(await si.versions())}
     },
-    "disk": {
-      "phys": {
-        "layout": ${JSON.stringify(await si.diskLayout())},
-        "dev": ${JSON.stringify(await si.blockDevices())}
-      },
-      "fs": {
-        "size": ${JSON.stringify(await si.fsSize())},
-        "open": ${JSON.stringify(await si.fsOpenFiles())}
-      }
-    },
-    "usb": ${JSON.stringify(await si.usb())},
-    "prn": ${JSON.stringify(await si.printer())},
-    "aud": ${JSON.stringify(await si.audio())},
-    "nic": ${JSON.stringify(await si.networkInterfaces())},
-    "wifi": ${JSON.stringify(await si.wifiInterfaces())}
+    "disk": ${JSON.stringify(await si.diskLayout())},
+    "usb": ${JSON.stringify(await si.usb())}
   }`;
 
   writeFileSync("./src/misc/assets/misc/helpers/host.json", data);
