@@ -7,6 +7,7 @@ const os = require("systeminformation");
 const { execSync } = require("child_process");
 const smbios = require("../../misc/helpers/smbios.js");
 const cfg = require("../../../cfg.json");
+const hostinfo = require("../../misc/assets/misc/helpers/host.json");
 
 // fucks haha get it because funcs
 function progress(percent) {
@@ -54,8 +55,8 @@ module.exports = {
       cpu: Math.round((await os.currentLoad()).currentLoad),
       mem: Math.floor(
         100 -
-          ((await Math.round((await os.mem()).free / 1073741824)) /
-            Math.round((await os.mem()).total / 1073741824)) *
+          (Math.round((await os.mem()).free / 1073741824) /
+            Math.round(hostinfo.mem.info.total / 1073741824)) *
             100
       ),
     };
@@ -63,23 +64,23 @@ module.exports = {
     // define in json so embed could be cleaner
     // prettier-ignore
     const sysinfo = {
-      os: `${(await os.osInfo()).distro} ${(await os.osInfo()).release} (${(await os.osInfo()).arch})`,
-      host: (await os.osInfo()).hostname,
+      os: `${hostinfo.os.sys.distro} ${hostinfo.os.sys.release} (${hostinfo.os.sys.arch})`,
+      host: hostinfo.os.sys.hostname,
       pkg: `Node.js ${process.version}, Discord.js v${package.dependencies['discord.js'].slice(1)}`,
       ver: `v${package.version}, commit \`${commit()}\``,
 
-      manu: `${(await os.system()).manufacturer.replace('Acidanthera', 'Apple')} ${smbios((await os.system()).model)}`,
-      cpu: `${(await os.cpu()).manufacturer} ${(await os.cpu()).brand} ${(await os.cpu()).speed} GHz (${(await os.cpu()).physicalCores}c, ${(await os.cpu()).cores}t)`,
-      mem: `${(await os.mem()).total / 1073741824} GB @ ${(await os.memLayout())[0].clockSpeed} MHz`,
+      manu: `${hostinfo.sys.manufacturer.replace('Acidanthera', 'Apple')} ${smbios(hostinfo.sys.model)}`,
+      cpu: `${hostinfo.cpu.manufacturer} ${hostinfo.cpu.brand} ${hostinfo.cpu.speed} GHz (${hostinfo.cpu.physicalCores}c, ${hostinfo.cpu.cores}t)`,
+      mem: `${hostinfo.mem.info.total / 1073741824} GB @ ${hostinfo.mem.layout[0].clockSpeed} MHz`,
       uptime: timeconv(os.time().uptime),
 
       usageCpuPrg: `${progress(usages.cpu)} ${usages.cpu}%`,
-      usageCpuInfo: (await os.cpu()).cores,
+      usageCpuInfo: hostinfo.cpu.cores,
 
       usageMemPrg: `${progress(usages.mem)} ${usages.mem}%`,
       usageMemInfo: `${Math.round(
         (await os.mem()).free / 1073741824
-      )} GB free out of ${Math.round((await os.mem()).total / 1073741824)} GB total`,
+      )} GB free out of ${Math.round(hostinfo.mem.info.total / 1073741824)} GB total`,
     };
 
     // general embed
