@@ -43,6 +43,7 @@ module.exports = {
       if (!execSync("git --version").toString().includes("not")) {
         return execSync("git rev-parse --short HEAD").toString().trim();
       } else {
+        // this doesn't even work lmao it just dies itself
         print.warn(
           "git wasn't found, make sure to add git to the PATH variable to use $update and $statistics."
         );
