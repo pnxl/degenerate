@@ -151,8 +151,7 @@ module.exports = {
 
     function hackintosh() {
       if (hostinfo.sys.manufacturer === "Acidanthera") return true;
-
-      return false;
+      else return false;
     }
 
     function bootMode() {
@@ -166,7 +165,7 @@ module.exports = {
         hostinfo.os.sys.distro === "Mac OS X"
       )
         return parsedBoot.replace("UEFI", "Apple EFI");
-      return parsedBoot;
+      else return parsedBoot;
     }
 
     const board = new MessageEmbed()
