@@ -85,8 +85,8 @@ module.exports = {
       ver: `v${package.version}, commit \`${commit()}\``,
 
       manu: `${hostinfo.sys.manufacturer.replace('Acidanthera', 'Apple')} ${smbios(hostinfo.sys.model)}`,
-      cpu: `${hostinfo.cpu.manufacturer} ${hostinfo.cpu.brand} ${hostinfo.cpu.speed} GHz (${hostinfo.cpu.physicalCores}c, ${hostinfo.cpu.cores}t)`,
-      mem: `${hostinfo.mem.info.total / 1073741824} GB @ ${hostinfo.mem.layout[0].clockSpeed} MHz`,
+      cpu: `${hostinfo.cpu.manufacturer} ${hostinfo.cpu.brand.replace(' Processor', '')} @ ${hostinfo.cpu.speed} GHz (${hostinfo.cpu.physicalCores}c, ${hostinfo.cpu.cores}t)`,
+      mem: `${Math.floor(hostinfo.mem.info.total / 1073741824)} GB @ ${hostinfo.mem.layout[0].clockSpeed} MHz`,
       uptime: timeconv(os.time().uptime),
 
       usageCpuPrg: `${progress(usages.cpu)} ${usages.cpu}%`,
