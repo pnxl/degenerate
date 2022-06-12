@@ -9,7 +9,6 @@ npm-debug.log
 cfg.json
 
 # unique to each machine
-host.json
 
 # exclude windows bullshit
 Thumbs.db
