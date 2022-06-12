@@ -7,18 +7,11 @@
   "scripts": {
     "start": "forever src/index.js",
     "register": "node src/misc/scripts/register.js",
+    "host": "node src/misc/scripts/host.js",
     "format": "prettier -w *"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nytrium/byte.git"
   },
   "author": "pnxl <pix3l.icious@gmail.com>",
   "license": "GNU GPLv3",
-  "bugs": {
-    "url": "https://github.com/Nytrium/byte/issues"
-  },
-  "homepage": "https://github.com/Nytrium/byte#readme",
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.2.0-canary.0",
