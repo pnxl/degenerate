@@ -1,5 +1,5 @@
 const si = require("systeminformation");
-const { writeFileSync } = require("fs");
+const { writeFile } = require("fs");
 
 /*
 module.exports = {
@@ -55,7 +55,7 @@ async function spitOutInformationNowGodDamnIt() {
     "usb": ${JSON.stringify(await si.usb())}
   }`;
 
-  writeFileSync("./src/misc/assets/misc/helpers/host.json", data);
+  writeFile("./src/misc/assets/misc/helpers/host.json", data);
 }
 
 spitOutInformationNowGodDamnIt();
