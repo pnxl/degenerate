@@ -162,7 +162,7 @@ module.exports = {
       .setTitle(`🖥 system`)
       .setColor(cfg.embed.colours.default)
       .addField("manufacturer", hostinfo.sys.manufacturer || "???", true)
-      .addField("model", hostinfo.sys.model || "???", true)
+      .addField("model", smbios(hostinfo.sys.model) || "???", true)
       .addField("stock unit", hostinfo.sys.sku || "???", true)
       .addField("revision", hostinfo.sys.version || "???", true)
       .addField(
@@ -188,9 +188,9 @@ module.exports = {
       .addField("family", hostinfo.cpu.family || "???", true)
       .addField("model", hostinfo.cpu.model || "???", true)
       .addField("stepping", hostinfo.cpu.stepping || "???", true)
-      .addField("base clock", hostinfo.cpu.speed + " GHz" || "???", true)
-      .addField("min speed", hostinfo.cpu.speedMin + " GHz" || "???", true)
-      .addField("max speed", hostinfo.cpu.speedMax + " GHz" || "???", true)
+      .addField("base clock", (hostinfo.cpu.speed || "???") + " GHz", true)
+      .addField("min speed", (hostinfo.cpu.speedMin || "???") + " GHz", true)
+      .addField("max speed", (hostinfo.cpu.speedMax || "???") + " GHz", true)
       .addField(
         "num of CPUs",
         hostinfo.cpu.processors.toString() || "???",
@@ -208,13 +208,14 @@ module.exports = {
       .setColor(cfg.embed.colours.default)
       .addField(
         "total memory",
-        hostinfo.mem.info.total / 1073741824 + " gigabytes" || "???",
+        (Math.floor(hostinfo.mem.info.total / 1073741824) || "???") +
+          " gigabytes",
         true
       )
       .addField("type", hostinfo.mem.layout[0].type || "???", true)
       .addField(
         "clock speed",
-        hostinfo.mem.layout[0].clockSpeed + " MHz" || "???",
+        (hostinfo.mem.layout[0].clockSpeed || "???") + " MHz",
         true
       )
       .addField(
@@ -222,7 +223,7 @@ module.exports = {
         hostinfo.mem.layout[0].ecc
           .toString()
           .replace(true, "yes")
-          .replace(false, "no"),
+          .replace(false, "no") || "???",
         true
       )
       .addField("form-factor", hostinfo.mem.layout[0].formFactor || "???", true)
@@ -244,7 +245,13 @@ module.exports = {
       .setColor(cfg.embed.colours.default)
       .addField("vendor", hostinfo.gfx.controllers[0].vendor || "???", true)
       .addField("model", hostinfo.gfx.controllers[0].model || "???", true)
-      .addField("connection", hostinfo.gfx.controllers[0].bus || "???", true)
+      .addField(
+        "connection",
+        hostinfo.gfx.controllers[0].bus ||
+          hostinfo.gfx.controllers[0].busAddress ||
+          "???",
+        true
+      )
       .addField(
         "dynamic vram",
         hostinfo.gfx.controllers[0].vramDynamic
@@ -255,7 +262,7 @@ module.exports = {
       )
       .addField(
         "video memory",
-        hostinfo.gfx.controllers[0].vram || "???" + " MB",
+        (hostinfo.gfx.controllers[0].vram || "???") + " MB",
         true
       )
       .addField(
@@ -276,8 +283,8 @@ module.exports = {
           .replace("Mac OS X ", "") || "???",
         true
       )
-      .addField("platform", hostinfo.os.sys.platform || "???", true)
       .addField("build", hostinfo.os.sys.build || "???", true)
+      .addField("platform", hostinfo.os.sys.platform || "???", true)
       .addField("kernel version", hostinfo.os.sys.kernel || "???", true)
       .addField("fqdn", hostinfo.os.sys.fqdn || "???", true)
       .addField("boot mode", bootMode() || "???", true)
@@ -314,7 +321,7 @@ module.exports = {
       .addField("vendor", hostinfo.disk[0].vendor || "???", true)
       .addField(
         "size",
-        Math.floor(hostinfo.disk[0].size / 1073741824) + " GB" || "???",
+        (Math.floor(hostinfo.disk[0].size / 1073741824) || "???") + " GB",
         true
       )
       .addField("device", hostinfo.disk[0].device || "???", true)
@@ -328,7 +335,7 @@ module.exports = {
       )
       .addField("interface", hostinfo.disk[0].interfaceType || "???", true)
       .addField("firmware", hostinfo.disk[0].firmwareRevision || "???", true)
-      .addField("temperature", hostinfo.disk[0].temperature || "-1", true)
+      .addField("temperature", hostinfo.disk[0].temperature || "???", true)
       .addField(
         "S.M.A.R.T. status",
         hostinfo.disk[0].smartStatus.replace("unknown", "???") || "???",
@@ -342,10 +349,10 @@ module.exports = {
       .addField("type", hostinfo.usb[0].type || "???", true)
       .addField(
         "removable",
-        hostinfo.usb[0].removable
+        (hostinfo.usb[0].removable || "???")
           .toString()
           .replace("true", "yes")
-          .replace("false", "no") || "???",
+          .replace("false", "no"),
         true
       )
       .addField("vendor", hostinfo.usb[0].vendor || "???", true)
