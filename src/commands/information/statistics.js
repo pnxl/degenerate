@@ -138,6 +138,17 @@ module.exports = {
 
     // #region nerdy statistics
     // system information
+    function virtualised() {
+      const virtual = hostinfo.sys.virtual
+        .toString()
+        .replace("true", "yes")
+        .replace("false", "no");
+
+      if (virtual === "yes")
+        return virtual + " (" + (hostinfo.sys.virtualHost | "???") + ")";
+      else return virtual;
+    }
+
     function hackintosh() {
       if (hostinfo.sys.manufacturer === "Acidanthera") return true;
 
@@ -165,14 +176,7 @@ module.exports = {
       .addField("model", smbios(hostinfo.sys.model) || "???", true)
       .addField("stock unit", hostinfo.sys.sku || "???", true)
       .addField("revision", hostinfo.sys.version || "???", true)
-      .addField(
-        "virtualised",
-        hostinfo.sys.virtual
-          .toString()
-          .replace("true", "yes")
-          .replace("false", "no"),
-        true
-      )
+      .addField("virtualised", virtualised(), true)
       .addField(
         "hackintosh",
         hackintosh().toString().replace("true", "yes").replace("false", "no"),
