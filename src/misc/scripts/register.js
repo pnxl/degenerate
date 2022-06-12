@@ -50,5 +50,3 @@ function spitOutCommandsNowGodDamnIt() {
 }
 
 spitOutCommandsNowGodDamnIt();
-
-module.exports = spitOutCommandsNowGodDamnIt();

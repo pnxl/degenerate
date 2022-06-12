@@ -59,5 +59,3 @@ async function spitOutInformationNowGodDamnIt() {
 }
 
 spitOutInformationNowGodDamnIt();
-
-module.exports = spitOutInformationNowGodDamnIt();

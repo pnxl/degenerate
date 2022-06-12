@@ -8,8 +8,10 @@ require("dotenv").config();
 
 // import anything else that should be ran
 // should comment if running on devel
-require("./misc/scripts/host.js")();
-require("./misc/scripts/register.js")();
+
+// TODO: figure out why the fuck this doesn't work
+// require("./misc/scripts/host.js")();
+// require("./misc/scripts/register.js")();
 
 // create client
 const client = new Client({
