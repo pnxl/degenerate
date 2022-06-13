@@ -28,6 +28,7 @@ module.exports = {
     const percent = Math.floor(Math.random() * 100) + 1;
 
     function percentageBias() {
+      // #region rigged percentages
       if (
         /*
          * 648896419020668928 is bri
@@ -39,7 +40,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "466453424930553856")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 967724967741513808 is jason
          * 763970485373370370 is kei
@@ -50,7 +53,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "763970485373370370")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 728180364962562108 is cha
          * 775550130115444776 is ashley
@@ -61,7 +66,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "775550130115444776")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 683126724304830570 is tristan
          * 466453424930553856 is evan
@@ -72,7 +79,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "466453424930553856")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 648896419020668928 is bri
          * 871926990112956457 is karyn
@@ -83,7 +92,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "871926990112956457")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 648896419020668928 is bri
          * 817257502436491294 is karyn
@@ -94,7 +105,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "817257502436491294")
       ) {
         return 100;
-      } else if (
+      }
+
+      if (
         /*
          * 621949212216655912 is filbert
          * 707078292854931497 is amanda
@@ -105,12 +118,14 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "707078292854931497")
       ) {
         return 100;
-      } else {
-        return percent;
       }
+      // #endregion
+
+      return percent;
     }
 
     function shipName() {
+      // #region rigged ship names
       if (
         /*
          * 967724967741513808 is jason
@@ -123,7 +138,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "763970485373370370")
       ) {
         return "keison";
-      } else if (
+      }
+
+      if (
         /*
          * 728180364962562108 is cha
          * 775550130115444776 is ashley
@@ -134,7 +151,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "775550130115444776")
       ) {
         return "chash ☆";
-      } else if (
+      }
+
+      if (
         /*
          * 648896419020668928 is bri
          * 466453424930553856 is evan
@@ -155,7 +174,9 @@ module.exports = {
          */
 
         return "brevan";
-      } else if (
+      }
+
+      if (
         /*
          * 683126724304830570 is tristan
          * 466453424930553856 is evan
@@ -166,7 +187,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "466453424930553856")
       ) {
         return "trisvan";
-      } else if (
+      }
+
+      if (
         /*
          * 648896419020668928 is bri
          * 871926990112956457 is karyn
@@ -177,7 +200,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "871926990112956457")
       ) {
         return "kargitta"; // car-guitar lol
-      } else if (
+      }
+
+      if (
         /*
          * 648896419020668928 is bri
          * 817257502436491294 is karyn
@@ -188,7 +213,9 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "817257502436491294")
       ) {
         return "kargitta";
-      } else if (
+      }
+
+      if (
         /*
          * 621949212216655912 is filbert
          * 707078292854931497 is amanda
@@ -199,9 +226,10 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "707078292854931497")
       ) {
         return "filmanda";
-      } else {
-        return user1slice + user2slice;
       }
+      // #endregion
+
+      return user1slice + user2slice;
     }
 
     function pickEmbed() {
