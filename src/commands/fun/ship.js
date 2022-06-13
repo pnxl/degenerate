@@ -94,6 +94,17 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "817257502436491294")
       ) {
         return 100;
+      } else if (
+        /*
+         * 621949212216655912 is filbert
+         * 707078292854931497 is amanda
+         */
+        (interaction.options.getUser("user1")?.id === "621949212216655912" &&
+          interaction.options.getUser("user2")?.id === "707078292854931497") ||
+        (interaction.options.getUser("user2")?.id === "621949212216655912" &&
+          interaction.options.getUser("user1")?.id === "707078292854931497")
+      ) {
+        return 100;
       } else {
         return percent;
       }
@@ -177,6 +188,17 @@ module.exports = {
           interaction.options.getUser("user1")?.id === "817257502436491294")
       ) {
         return "kargitta";
+      } else if (
+        /*
+         * 621949212216655912 is filbert
+         * 707078292854931497 is amanda
+         */
+        (interaction.options.getUser("user1")?.id === "621949212216655912" &&
+          interaction.options.getUser("user2")?.id === "707078292854931497") ||
+        (interaction.options.getUser("user2")?.id === "621949212216655912" &&
+          interaction.options.getUser("user1")?.id === "707078292854931497")
+      ) {
+        return "filmanda";
       } else {
         return user1slice + user2slice;
       }
