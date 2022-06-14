@@ -32,7 +32,7 @@ module.exports = {
     });
 
     await interaction.reply({
-      content: "Webhook sent!",
+      content: "webhook sent!",
       ephemeral: true,
     });
 
