@@ -48,3 +48,5 @@ Temporary Items
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+
+src/misc/assets/misc/helpers/host.json
